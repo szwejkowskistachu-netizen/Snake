@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Snake Jungle</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🐍 Snake Jungle</h1>
+
+<div id="topPanel">
+
+<span id="statusText">Gotowy do gry</span>
+
+<button onclick="resetGame()">Nowa gra</button>
+
+</div>
+
+<div id="menu">
+
+<h2>Misja</h2>
+
+<select id="missionSelect">
+<option value="big">Bądź największy</option>
+<option value="small">Bądź najmniejszy</option>
+</select>
+
+<h2>Mapa</h2>
+
+<select id="mapSelect">
+<option value="jungle">Dżungla</option>
+<option value="sky">Niebo</option>
+<option value="desert">Pustynia</option>
+</select>
+
+<h2>Skin</h2>
+
+<select id="skinSelect">
+<option value="classic">Classic</option>
+<option value="demogorgon">Demogorgon</option>
+<option value="dog">Dog</option>
+</select>
+
+<button onclick="startGame()">START</button>
+
+</div>
+
+<canvas id="game" width="1000" height="700"></canvas>
+
+<script src="game.js"></script>
+
+</body>
+</html>
