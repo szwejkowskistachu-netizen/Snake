@@ -63,15 +63,23 @@ height: auto;
     touch-action: manipulation;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1024px), (pointer: coarse) {
     #menu, #modeSelect {
         grid-template-columns: repeat(2, 160px);
+        width: 100%;
+        padding: 10px;
     }
     #menu h2, #modeSelect h2, #menu button, #modeSelect button {
         grid-column: span 2;
     }
     #controls {
         display: flex;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    button {
+        padding: 10px 15px;
     }
 }
 

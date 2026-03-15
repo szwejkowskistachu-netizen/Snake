@@ -151,6 +151,7 @@ canvas.addEventListener("touchstart", (e) => {
 }, { passive: true });
 
 canvas.addEventListener("touchend", (e) => {
+    e.preventDefault(); // Prevent default touch behavior (like scrolling)
     let touchEndX = e.changedTouches[0].screenX;
     let touchEndY = e.changedTouches[0].screenY;
     
@@ -164,7 +165,7 @@ canvas.addEventListener("touchend", (e) => {
         if (dy > 30) setDirection("DOWN");
         else if (dy < -30) setDirection("UP");
     }
-}, { passive: true });
+}, { passive: false });
 
 function moveSnakes() {
     snakes.forEach(s => {
@@ -415,6 +416,33 @@ function draw() {
         ctx.arc(food.x + 10, food.y + 10, 10, 0, Math.PI * 2);
         ctx.fill();
     });
+
+    // Draw current score / snake length dynamically (visible in bot mode or solo survival)
+    if (gameMode === "bots" || mission === "survival") {
+        let player = snakes.find(s => s.id === "player");
+        if (player && !player.dead) {
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.textAlign = "left";
+            ctx.fillText("Length: " + player.length, 10, 30);
+
+            if (gameMode === "bots") {
+                // Display bot lengths too
+                snakes.filter(s => s.isBot && !s.dead).forEach((bot, index) => {
+                    ctx.fillText("Bot " + bot.id.replace("bot", "") + " Length: " + bot.length, 10, 60 + (index * 30));
+                });
+            }
+        }
+    }
+
+    // Display survival timer
+    if (mission === "survival" && gameInterval) {
+        let timeLeft = 60 - Math.floor(gameTime / 1000);
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.textAlign = "right";
+        ctx.fillText("Time Left: " + timeLeft + "s", canvas.width - 10, 30);
+    }
 
     // Snakes
     snakes.forEach(s => {
