@@ -11,24 +11,28 @@
 <h1>🐍 Snake Jungle</h1>
 
 <div id="topPanel">
-
 <span id="statusText">Gotowy do gry</span>
-
-<button onclick="resetGame()">Nowa gra</button>
-
+<button onclick="resetGame()">Menu Główne</button>
 </div>
 
-<div id="menu">
+<div id="modeSelect" class="menu-screen">
+<h2>Wybierz tryb gry</h2>
+<button onclick="chooseMode('solo')">Graj Sam</button>
+<button onclick="chooseMode('bots')">Graj z Botami</button>
+</div>
 
+<div id="menu" class="menu-screen" style="display:none">
+
+<div id="missionSection">
 <h2>Misja</h2>
-
 <select id="missionSelect">
 <option value="big">Bądź największy</option>
 <option value="small">Bądź najmniejszy</option>
+<option value="survival">Przetrwanie (60s)</option>
 </select>
+</div>
 
 <h2>Mapa</h2>
-
 <select id="mapSelect">
 <option value="jungle">Dżungla</option>
 <option value="sky">Niebo</option>
@@ -36,7 +40,6 @@
 </select>
 
 <h2>Skin</h2>
-
 <select id="skinSelect">
 <option value="classic">Classic</option>
 <option value="demogorgon">Demogorgon</option>
