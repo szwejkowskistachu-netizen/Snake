@@ -125,6 +125,47 @@ document.addEventListener("keydown", e => {
     if (e.key == "ArrowRight" && p.dir != "LEFT") playerDir = "RIGHT"
 })
 
+// Touch Controls
+function setDirection(newDir) {
+    let p = snakes.find(s => s.id === "player");
+    if (!p || p.dead) return;
+
+    if (newDir == "UP" && p.dir != "DOWN") playerDir = "UP"
+    if (newDir == "DOWN" && p.dir != "UP") playerDir = "DOWN"
+    if (newDir == "LEFT" && p.dir != "RIGHT") playerDir = "LEFT"
+    if (newDir == "RIGHT" && p.dir != "LEFT") playerDir = "RIGHT"
+}
+
+document.getElementById("ctrl-up").addEventListener("touchstart", (e) => { e.preventDefault(); setDirection("UP"); });
+document.getElementById("ctrl-down").addEventListener("touchstart", (e) => { e.preventDefault(); setDirection("DOWN"); });
+document.getElementById("ctrl-left").addEventListener("touchstart", (e) => { e.preventDefault(); setDirection("LEFT"); });
+document.getElementById("ctrl-right").addEventListener("touchstart", (e) => { e.preventDefault(); setDirection("RIGHT"); });
+
+// Swipe Detection
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+canvas.addEventListener("touchend", (e) => {
+    let touchEndX = e.changedTouches[0].screenX;
+    let touchEndY = e.changedTouches[0].screenY;
+    
+    let dx = touchEndX - touchStartX;
+    let dy = touchEndY - touchStartY;
+    
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 30) setDirection("RIGHT");
+        else if (dx < -30) setDirection("LEFT");
+    } else {
+        if (dy > 30) setDirection("DOWN");
+        else if (dy < -30) setDirection("UP");
+    }
+}, { passive: true });
+
 function moveSnakes() {
     snakes.forEach(s => {
         if (s.dead) return;
